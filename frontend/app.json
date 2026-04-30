@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "e23929b7-e9da-4dd8-80d1-8ec20b900b33"
+      }
+    },
+    "android": {
+      "package": "com.tino12.beautywebfrontend"
+    }
+  }
+}

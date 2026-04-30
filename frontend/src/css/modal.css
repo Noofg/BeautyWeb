@@ -1,0 +1,97 @@
+/* overlay nền mờ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* nền mờ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* box modal */
+.modal-box {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 350px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.25s ease;
+  text-align: center;
+}
+
+/* tiêu đề */
+.modal-box h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* nội dung */
+.modal-box p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* action buttons */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* button chung */
+.modal-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+/* nút huỷ */
+.btn-cancel {
+  background: #eee;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #ddd;
+}
+
+/* nút confirm */
+.btn-confirm {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-confirm:hover {
+  background: #43a047;
+}
+.modal-success {
+  color: #4CAF50;
+}
+.modal-error {
+  color: #f44336;
+}
+.modal-warning {
+  color: #ff9800;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

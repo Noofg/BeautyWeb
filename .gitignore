@@ -1,0 +1,19 @@
+# Node
+node_modules/
+frontend/node_modules/
+
+# Cache
+.cache/
+dist/
+build/
+
+# Env
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
