@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
@@ -30,7 +31,8 @@ public class JwtSecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/**").permitAll() 
+                     .requestMatchers("/api/auth/**").permitAll()
+                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -44,7 +46,7 @@ public class JwtSecurityConfig {
 
         // Cho phép Vercel và Localhost
         configuration.setAllowedOrigins(List.of(
-            // "https://beauty-web-Tino.vercel.app", 
+             "https://beauty-web-Tino.vercel.app", 
             "https://beauty-web-zeta.vercel.app",
             "http://localhost:3000"
         )); 
