@@ -33,6 +33,7 @@ public class JwtSecurityConfig {
             .authorizeHttpRequests(auth -> auth
                      .requestMatchers("/api/auth/**").permitAll()
                      .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    .requestMatchers("/api/appointments/book").hasAnyRole("CUSTOMER", "STAFF")
                     .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
