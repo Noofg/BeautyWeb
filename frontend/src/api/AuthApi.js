@@ -27,11 +27,13 @@ export const adminRegisterUser = (data) => {
 export const loginUser = (data) => {
   return axios.post(`${API_URL}/login`, data)
     .then((res) => {
-      const token = res.data.token;
+      const token = res?.data?.token;
 
-      if (token) {
-        localStorage.setItem("token", token);
-      }
+      if (token && token !== "null") {
+  localStorage.setItem("token", token);
+} else {
+  localStorage.removeItem("token");
+}
 
       return res;
     });

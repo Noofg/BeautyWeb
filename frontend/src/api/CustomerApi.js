@@ -1,80 +1,54 @@
-import axios from "axios";
+import api from "./api";
 
 const API_URL = `${process.env.REACT_APP_API_URL}/api/customers`;
 
-// Lấy tất cả khách hàng
-export const getCustomers = () => {
-  const token = localStorage.getItem("token");
-  return axios.get(API_URL, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+// ===== GET ALL =====
+export const getCustomers = async () => {
+  const res = await api.get(API_URL);
+  return res.data;
 };
 
-// Lấy customer theo userId (🔥 quan trọng để lấy điểm)
-export const getCustomerByUserId = (userId) => {
-  const token = localStorage.getItem("token");
-  return axios.get(`${API_URL}/profile/${userId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+// ===== GET BY USER ID =====
+export const getCustomerByUserId = async (userId) => {
+  const res = await api.get(`${API_URL}/profile/${userId}`);
+  return res.data;
 };
 
-// Tạo customer
-export const createCustomer = (data) => {
-  const token = localStorage.getItem("token");
-  return axios.post(`${API_URL}/create`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+// ===== CREATE =====
+export const createCustomer = async (data) => {
+  const res = await api.post(`${API_URL}/create`, data);
+  return res.data;
 };
 
+// ===== GET ALL (duplicate - giữ 1 thôi) =====
 export const getCustomerAll = async () => {
-  const token = localStorage.getItem("token");
-
-  return await axios.get(API_URL, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-};
-// Cập nhật customer
-export const updateCustomer = (id, data) => {
-  const token = localStorage.getItem("token");
-  return axios.put(`${API_URL}/${id}`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+  const res = await api.get(API_URL);
+  return res.data;
 };
 
-// Xóa customer
-export const deleteCustomer = (id) => {
-  const token = localStorage.getItem("token");
-  return axios.delete(`${API_URL}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+// ===== UPDATE =====
+export const updateCustomer = async (id, data) => {
+  const res = await api.put(`${API_URL}/${id}`, data);
+  return res.data;
 };
 
-// Tìm kiếm customer
-export const searchCustomers = (keyword) => {
-  const token = localStorage.getItem("token");
-  return axios.get(`${API_URL}/search?keyword=${keyword}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+// ===== DELETE =====
+export const deleteCustomer = async (id) => {
+  const res = await api.delete(`${API_URL}/${id}`);
+  return res.data;
 };
-export const CustomerPointsApi  = (userId, points) => {
-  const token = localStorage.getItem("token");
-  return axios.put(`${API_URL}/use-points/${userId}?points=${points}`, {}, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+
+// ===== SEARCH =====
+export const searchCustomers = async (keyword) => {
+  const res = await api.get(`${API_URL}/search?keyword=${keyword}`);
+  return res.data;
+};
+
+// ===== USE POINTS =====
+export const CustomerPointsApi = async (userId, points) => {
+  const res = await api.put(
+    `${API_URL}/use-points/${userId}?points=${points}`,
+    {}
+  );
+  return res.data;
 };
