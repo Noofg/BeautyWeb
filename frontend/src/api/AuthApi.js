@@ -25,15 +25,16 @@ export const adminRegisterUser = (data) => {
  return axios.post(`${API_URL}/adminRegisterCustomer`, data);
 };
 export const loginUser = (data) => {
-    const res = await axios.post(`${API_URL}/login`, data);
+  return axios.post(`${API_URL}/login`, data)
+    .then((res) => {
+      const token = res.data.token;
 
-  const token = res.data.token;
+      if (token) {
+        localStorage.setItem("token", token);
+      }
 
-  if (token) {
-    localStorage.setItem("token", token);
-  }
-
-  return res;
+      return res;
+    });
 };
 export const logout = () => {
   localStorage.removeItem("token");
