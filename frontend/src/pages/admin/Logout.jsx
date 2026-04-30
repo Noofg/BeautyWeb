@@ -5,7 +5,13 @@ import '../../css/admincss/Admin.css';
 function Logout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+const handleLogout = () => {
+   
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
+    navigate("/login");
+  };
   return (
     <div className="admin-dashboard">
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
@@ -54,9 +60,9 @@ function Logout() {
         <div style={{ padding: '20px', background: '#fff', borderRadius: '24px' }}>
           <h2>Đăng xuất thành công</h2>
           <p>Bạn đã đăng xuất khỏi hệ thống.</p>
-          <button className="add-btn" onClick={() => navigate('/login')}>
-            Đăng nhập lại
-          </button>
+         <button className="add-btn" onClick={handleLogout}>
+  Đăng nhập lại
+</button>
         </div>
       </div>
     </div>

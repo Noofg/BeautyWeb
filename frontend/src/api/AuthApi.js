@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import api from "./api";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/auth`;
 
 
@@ -25,8 +25,18 @@ export const adminRegisterUser = (data) => {
  return axios.post(`${API_URL}/adminRegisterCustomer`, data);
 };
 export const loginUser = (data) => {
-  return axios.post(`${API_URL}/login`, data);
-};
+    const res = await axios.post(`${API_URL}/login`, data);
 
+  const token = res.data.token;
+
+  if (token) {
+    localStorage.setItem("token", token);
+  }
+
+  return res;
+};
+export const logout = () => {
+  localStorage.removeItem("token");
+};
 
 
