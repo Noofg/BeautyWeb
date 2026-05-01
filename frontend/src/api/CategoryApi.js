@@ -4,8 +4,8 @@ const API_URL = `${process.env.REACT_APP_API_URL}/api/categories`;
 
 // ===== GET ALL =====
 export const getCategories = async () => {
-  const res = await api.get(API_URL);
-  return res.data;
+  return await api.get(API_URL);
+ 
 };
 
 // ===== CREATE =====

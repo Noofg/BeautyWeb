@@ -131,19 +131,18 @@ useEffect(() => {
   setEditingId(product._id);
   setShowModal(true);
 };
-   const handleDelete = async (id) => {
-     if (!id) {
+   const handleDelete = async (_id) => {
+     if (!_id) {  
     console.error("❌ ID undefined");
     return;
   }
-
     showAlert({
       title: "Xác nhận xóa",
       message: "Bạn có chắc chắn muốn xóa sản phẩm này không?",
       type: "warning",
       onConfirm: async () => {
         try {
-          await deleteProduct(id);
+          await deleteProduct(_id);
           fetchProducts();
         } catch (err) {
           console.error(err);
@@ -302,6 +301,7 @@ const getExpiryStyle = (status) => {
     <tbody>
       {filteredProducts.length > 0 ? (
         filteredProduct.map((p) => {
+          console.log(p);
   const status = getExpiryStatus(p.expiryDate);
   const getExpiryStyle = (status) => {
   if (status === "expired") return { background: "#ffe5e5" };
@@ -309,7 +309,7 @@ const getExpiryStyle = (status) => {
   return {};
 };
   return (
-    <tr key={p.id } style={getExpiryStyle(status)}>
+    <tr key={p._id } style={getExpiryStyle(status)}>
 
       <td><strong>{p.name || ""}</strong></td>
 
@@ -347,7 +347,7 @@ const getExpiryStyle = (status) => {
       <td>
         <div className="actions">
           <button onClick={() => handleEdit(p)}>Sửa</button>
-          <button onClick={() => handleDelete(p.id )}>
+          <button onClick={() => handleDelete(p._id )}>
             Xoá
           </button>
         </div>

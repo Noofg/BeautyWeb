@@ -20,6 +20,8 @@ public class Product {
 
     private double price;         // Giá
 
+    
+
     private String supplier;      // Nhà cung cấp
 
     private LocalDate expiryDate; // Hạn sử dụng

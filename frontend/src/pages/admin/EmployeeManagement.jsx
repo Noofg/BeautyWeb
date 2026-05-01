@@ -44,11 +44,10 @@ const handleCreateFormChange = (e) => {
   const loadEmployees = async () => {
   try {
     const res = await fetchEmployees();
-    setEmployees(res.data || []);
+    setEmployees(res || []);
   } catch (err) {
     console.error(err);
   }
-
 };
 
 useEffect(() => {

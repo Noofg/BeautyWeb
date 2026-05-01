@@ -22,7 +22,7 @@ public class ProductService {
         Product p = new Product();
 
         p.setName(request.getName());
-        p.setCategoryName(request.getCategory());
+        p.setCategoryName(request.getCategoryName());
         p.setQuantity(request.getQuantity());
         p.setUnit(request.getUnit());
         p.setPrice(request.getPrice());
@@ -54,7 +54,7 @@ public class ProductService {
         Product p = getById(id);
 
         p.setName(request.getName());
-        p.setCategoryName(request.getCategory());
+        p.setCategoryName(request.getCategoryName());
         p.setQuantity(request.getQuantity());
         p.setUnit(request.getUnit());
         p.setPrice(request.getPrice());

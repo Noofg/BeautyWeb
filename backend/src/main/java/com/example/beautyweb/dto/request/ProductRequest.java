@@ -18,6 +18,19 @@ public class ProductRequest {
     private int minimumStockLevel;
     private Boolean active;
 
+    public ProductRequest(){}
+    public ProductRequest(String name, String categoryName, int quantity, String unit, double price, String supplier, LocalDate expiryDate, int minimumStockLevel, Boolean active) {
+        this.name = name;
+        this.categoryName = categoryName;
+        this.quantity = quantity;
+        this.unit = unit;
+        this.price = price;
+        this.supplier = supplier;
+        this.expiryDate = expiryDate;
+        this.minimumStockLevel = minimumStockLevel;
+        this.active = active;
+    }
+
     // ===== GETTER & SETTER =====
 
     public String getName() {
@@ -28,13 +41,17 @@ public class ProductRequest {
         this.name = name;
     }
 
-    public String getCategory() {
+    public String categoryName() {
         return categoryName;
     }
 
-    public void setCategory(String categoryName) {
-        this.categoryName = categoryName;
-    }
+    public String getCategoryName() {
+    return categoryName;
+}
+
+public void setCategoryName(String categoryName) {
+    this.categoryName = categoryName;
+}
 
     public int getQuantity() {
         return quantity;

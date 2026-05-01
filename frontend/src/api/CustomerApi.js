@@ -22,8 +22,8 @@ export const createCustomer = async (data) => {
 
 // ===== GET ALL (duplicate - giữ 1 thôi) =====
 export const getCustomerAll = async () => {
-  const res = await api.get(API_URL);
-  return res.data;
+  return await api.get(API_URL);
+ 
 };
 
 // ===== UPDATE =====

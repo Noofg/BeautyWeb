@@ -10,8 +10,8 @@ export const fetchEmployees = async () => {
 
 // 🔹 Lấy nhân viên theo ID
 export const getEmployeeById = async (id) => {
-  const res = await api.get(`${EMPLOYEE_API_URL}/${id}`);
-  return res.data;
+  return  await api.get(`${EMPLOYEE_API_URL}/${id}`);
+ 
 };
 
 // 🔹 Tạo nhân viên

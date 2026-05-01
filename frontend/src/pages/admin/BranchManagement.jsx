@@ -93,21 +93,25 @@ function BranchManagement() {
     }
   };
   const loadEmployees = async () => {
-    try {
-      const res = await fetchEmployees();
-      setEmployees(res.data || []);
-    } catch (err) {
-      console.error(err);
-    }
-  
-  };
+  try {
+    const res = await fetchEmployees();
+    console.log("EMPLOYEES:", res);
+    setEmployees(res || []);
+  } catch (err) {
+    console.error(err);
+  }
+};
   useEffect(() => {
   loadEmployees();
 }, []);
-const countEmployeesByBranch = (branchName) => {
-  return employees.filter(emp => emp.branches === branchName).length;
-};
+const normalize = (str) =>
+  str?.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
 
+const countEmployeesByBranch = (branchName) => {
+  return employees.filter(emp =>
+    normalize(emp.branches) === normalize(branchName)
+  ).length;
+};
   return (
     <div className="admin-dashboard">
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>

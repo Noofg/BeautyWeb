@@ -10,6 +10,7 @@ import {
   searchCustomers
 } from '../../api/CustomerApi';
 
+
 function CustomerMg() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -151,17 +152,34 @@ function CustomerMg() {
       console.error(err);
     }
   };
-    const handleDelete = async (id) => {
-    if (!window.confirm('Xoá khách này?')) return;
+   const handleDelete = async (id) => {
+  showModal({
+    title: "Xác nhận",
+    message: "Bạn có chắc muốn xoá khách hàng này?",
+    type: "warning",
+    onConfirm: async () => {
+      try {
+        await deleteCustomer(id);
 
-    try {
-      await deleteCustomer(id);
-      alert('Đã xoá');
-      fetchUsers();
-    } catch (err) {
-      console.error(err);
+        showModal({
+          title: "Thành công",
+          message: "Đã xoá khách hàng",
+          type: "success"
+        });
+
+        fetchUsers();
+      } catch (err) {
+        console.error(err);
+
+        showModal({
+          title: "Lỗi",
+          message: "Xoá thất bại",
+          type: "error"
+        });
+      }
     }
-  };
+  });
+};
     const handleSearch = async () => {
     if (!searchTerm) return fetchUsers();
 
@@ -234,13 +252,22 @@ function CustomerMg() {
               <h3>Tổng khách hàng</h3>
               <p>4</p>
             </div>
-           
+            <div className="stat-item">
+              <h3>Khách hàng active</h3>
+              <p>3</p>
+            </div>
             <div className="stat-item">
               <h3>Người dùng</h3>
               <p>4</p>
             </div>
-           
-            
+            <div className="stat-item">
+              <h3>Chi nhánh</h3>
+              <p>4</p>
+            </div>
+            <div className="stat-item">
+              <h3>Phòng ban</h3>
+              <p>5</p>
+            </div>
             <div className="stat-item">
               <h3>Tổng doanh thu</h3>
               <p>81.5M</p>
@@ -249,7 +276,10 @@ function CustomerMg() {
               <h3>Lượt ghé thăm</h3>
               <p>50</p>
             </div>
-           
+            <div className="stat-item">
+              <h3>Nhân viên</h3>
+              <p>10</p>
+            </div>
             <div className="stat-item">
               <h3>Khách hàng</h3>
               <p>4</p>

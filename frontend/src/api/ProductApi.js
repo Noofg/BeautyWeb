@@ -36,8 +36,8 @@ export const updateProduct = async (id, data) => {
 
 // ================= DELETE =================
 export const deleteProduct = async (id) => {
-  const res = await api.delete(`${API_URL}/${id}`);
-  return res.data;
+return await api.delete(`${API_URL}/${id}`);
+  
 };
 
 // ================= SEARCH =================

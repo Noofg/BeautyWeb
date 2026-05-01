@@ -4,8 +4,8 @@ const DEPARTMENT_API_URL = `${process.env.REACT_APP_API_URL}/api/departments`;
 
 // 🔹 Lấy danh sách phòng ban
 export const fetchDepartments = async () => {
-  const res = await api.get(DEPARTMENT_API_URL);
-  return res.data;
+  return await api.get(DEPARTMENT_API_URL);
+  
 };
 
 // 🔹 Tạo phòng ban
