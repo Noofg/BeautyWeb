@@ -2,12 +2,7 @@ import axios from "axios";
 
 const API_URL = `${process.env.REACT_APP_API_URL}/api/services`;
 export const getServices = async () => {
-  const token = localStorage.getItem("token");
-  return await axios.get(API_URL, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+  return await axios.get(API_URL, )
 };
 export const createService = async (data) => {
   const token = localStorage.getItem("token");
