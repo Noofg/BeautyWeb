@@ -3,10 +3,15 @@ import api from "./api";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/appointments`;
 
 export const bookAppointment = async (userId, data) => {
-   
-  return await api.post(`${API_URL}/book`, data,); 
+    const token = localStorage.getItem("token");
 
+   return await axios.post(`${API_URL}/book`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 };
+
 
 export const getUserAppointments = async (userId) => {
   return await api.get(`${API_URL}/user/${userId}`); 
