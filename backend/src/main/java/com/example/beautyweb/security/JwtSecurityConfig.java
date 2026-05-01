@@ -32,6 +32,8 @@ public class JwtSecurityConfig {
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                      .requestMatchers("/api/auth/**").permitAll()
+                         .requestMatchers(HttpMethod.GET, "/api/services/**").permitAll()
+                        .requestMatchers("/api/services/**").authenticated()
                      .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     
                     .anyRequest().authenticated()
