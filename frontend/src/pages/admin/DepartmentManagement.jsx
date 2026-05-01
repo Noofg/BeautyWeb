@@ -19,6 +19,7 @@ const [createForm, setCreateForm] = useState({
     status: 'Hoạt động',
     description: ''
   });
+  
    const handleCreateFormChange = (e) => {
     const { name, value } = e.target;
     setCreateForm(prev => ({
@@ -28,41 +29,40 @@ const [createForm, setCreateForm] = useState({
   };
 
     // load data
-  const loadDepartments = async () => {
-    try {
-      const res = await fetchDepartments();
-      setDepartments(res.data || []);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+ const load = async () => {
+  try {
+    const res = await fetchDepartments();
 
-  useEffect(() => {
-  fetchDepartments()
-    .then(res => setDepartments(res.data))
-    .catch(err => console.error(err));
+    console.log("API RESPONSE:", res);
+
+   const data = res?.data ?? res ?? [];
+
+    setDepartments(Array.isArray(data) ? data : []);
+  } catch (err) {
+    console.error("Load departments error:", err);
+    setDepartments([]);
+  }
+};
+
+useEffect(() => {
+  load();
 }, []);
-
  // delete
-  const handleDelete = async (id) => {
-    showModal({
-      title: "Xác nhận xóa",
-      message: "Bạn có chắc chắn muốn xóa phòng ban này không?",
-      type: "warning",
-      onConfirm: async () => {
-        try {
-          await deleteDepartment(id);
-          loadDepartments();
-        } catch (err) {
-          showModal({
-            title: "Lỗi",
-            message: "Có lỗi xảy ra khi xóa phòng ban.",
-            type: "error"
-          });
-        }
+ const handleDelete = async (id) => {
+  showModal({
+    title: "Xác nhận xóa",
+    message: "Bạn có chắc chắn muốn xóa phòng ban này không?",
+    type: "warning",
+    onConfirm: async () => {
+      try {
+        await deleteDepartment(id);
+        await load(); // 🔥 phải await
+      } catch (err) {
+        console.error(err);
       }
-    });
-  };
+    }
+  });
+};
 const handleUpdate = async () => {
   try {
     const updateData = {
@@ -84,7 +84,7 @@ const handleUpdate = async () => {
 
     setShowCreateModal(false);
     setEditingDepartment(null);
-    loadDepartments();
+    await load();;
   } catch (err) {
     showModal({
       title: "Lỗi",
@@ -96,18 +96,18 @@ const handleUpdate = async () => {
 
 const handleSearch = async (keyword) => {
   if (!keyword) {
-    loadDepartments();
+    const res = await fetchDepartments();
+    setDepartments(res?.data || []);
     return;
   }
 
   try {
     const res = await searchDepartments(keyword);
-    setDepartments(res.data);
+    setDepartments(res?.data || []);
   } catch (err) {
-    console.error(err);
+    setDepartments([]);
   }
 };
-
 const handleEdit = (dep) => {
   setEditingDepartment(dep);
 
@@ -232,7 +232,7 @@ const handleCreateDepartment = async (e) => {
             </div>
             <div className="stat-item">
               <h3>Nhân viên</h3>
-              <p>29</p>
+              <p>4</p>
             </div>
             
           </div>
@@ -271,17 +271,17 @@ const handleCreateDepartment = async (e) => {
           </div>
 
           <div className="department-grid">
-          {departments.length > 0 ? (
+         {Array.isArray(departments) && departments.length > 0 ?(
           departments.map((dep) => (
       <div className="department-card" key={dep.id}>
         <div className="department-header">
-          <h3>{dep.name}</h3>
+          <h3>{dep.name || 'Tên phòng ban không xác định'}</h3>
           <span className="status active">Hoạt động</span>
         </div>
 
         <div className="department-info">
-          <p><strong>Trưởng phòng:</strong> {dep.departmentHead}</p>
-          <p><strong>Mô tả:</strong> {dep.description}</p>
+          <p><strong>Trưởng phòng:</strong> {dep.departmentHead || 'Không xác định'}</p>
+          <p><strong>Mô tả:</strong> {dep.description || 'Không có mô tả'}</p>
         </div>
 
         <div className="department-budget">

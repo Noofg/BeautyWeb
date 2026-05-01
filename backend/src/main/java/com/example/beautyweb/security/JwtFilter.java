@@ -46,6 +46,8 @@ protected void doFilterInternal(HttpServletRequest request,
 
             String email = claims.getSubject();
             String role = claims.get("role", String.class);
+            SecurityContextHolder.clearContext();
+            if (role == null) role = "CUSTOMER";
 
             // 🔥 set role đúng
             UsernamePasswordAuthenticationToken auth =
@@ -56,7 +58,9 @@ protected void doFilterInternal(HttpServletRequest request,
                     );
 
             SecurityContextHolder.getContext().setAuthentication(auth);
-
+     System.out.println("AUTH AFTER SET = " +
+    SecurityContextHolder.getContext().getAuthentication());
+            System.out.println("SET AUTH DONE");
         } catch (Exception e) {
             System.out.println("JWT lỗi: " + e.getMessage());
         }

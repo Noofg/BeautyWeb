@@ -10,7 +10,7 @@ function Booking() {
    const { showModal } = useModal();
 
   const [form, setForm] = useState({
-    service: "Chăm sóc da mặt",
+    service: "",
     appointmentDate: "",
     notes: "",
   });
@@ -39,24 +39,31 @@ function Booking() {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
-  //  chưa login
+  // Chưa login
   if (!token || !userId) {
     showModal({
       title: "Yêu cầu đăng nhập",
       message: "Bạn cần đăng nhập để đặt lịch",
     });
-     setShowLoginModal(true);
+    setShowLoginModal(true);
     return;
   }
+
+  // Validate
+  if (!form.service || !form.appointmentDate) {
+    showModal({
+      title: "Lỗi",
+      message: "Vui lòng chọn dịch vụ và thời gian!",
+      type: "error"
+    });
+    return;
+  }
+
   setIsLoading(true);
 
-  // validate
-  if (!form.service || !form.appointmentDate) {
-    showModal("Vui lòng chọn dịch vụ và thời gian!");
-    return;
-  }
   try {
-    await bookAppointment({
+    // Gọi hàm từ service (token sẽ được tự động thêm bởi interceptor)
+    const response = await bookAppointment(userId, {
       ...form,
       userId: userId,
     });
@@ -66,16 +73,30 @@ function Booking() {
       message: "Đặt lịch thành công!",
       type: "success"
     });
+
+      setForm({
+      service: "Chăm sóc da mặt",
+      appointmentDate: "",
+      notes: "",
+    });
+
+    
+    setTimeout(() => {
+      navigate("/home");
+    }, 1000);
+
+
   } catch (err) {
-    console.error(err);
+    console.error("Booking error:", err);
     showModal({
       title: "Lỗi",
-      message: "Đặt lịch thất bại!",
+      message: err.message || "Đặt lịch thất bại!",
       type: "error"
     });
+  } finally {
+    setIsLoading(false);
   }
 };
-
   return (
     <div className="booking-page">
       <div className="container mt-5">

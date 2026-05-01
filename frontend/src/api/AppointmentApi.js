@@ -4,10 +4,11 @@ import axios from "axios";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/appointments`;
 
 export const bookAppointment = async (userId, data) => {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-   return await axios.post(`${API_URL}/book`, data, {
+  return await api.post(`/api/appointments/book`, data, {
     headers: {
+      "X-User-Id": userId,
       Authorization: `Bearer ${token}`
     }
   });

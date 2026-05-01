@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/payments")
 //@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "https://beauty-ef4oyuz0n-tinos-projects-2cc858eb.vercel.app")
+@CrossOrigin(origins = { "http://localhost:3000", "https://beauty-web-zeta.vercel.app", "https://beauty-ef4oyuz0n-tinos-projects-2cc858eb.vercel.app" })
 public class PaymentController {
 
     @Autowired
